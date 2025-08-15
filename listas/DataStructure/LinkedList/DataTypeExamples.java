@@ -5,7 +5,7 @@
 * primitivos (int), cadena (String) y los complejos (los contactos).
 **/
 
-package listas;
+package DataStructure.LinkedList;
 
 public class DataTypeExamples {
     
