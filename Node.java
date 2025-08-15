@@ -23,20 +23,20 @@ public class Node <E> {
     private E data;
     Node next;
     
-     /** 
+    /** 
      * Constructor que crea un nodo con un dato y una para al siguiente nodo
      * @param data (dato) que se guardará en el nodo
      * @param next Es como una referencia a lo que es al siguiente nodo de la lista
-     */
+    */
     public Node (E data, Node next) {
         this.data=data;
         this.next=next; //Puede dar nulo
     }
     
-     /**
+    /**
      * Constructor que crea un nodo con un dato y sin nodo siguiente
      * @param data (dato) que se almacenará en el nodo
-     */
+    */
     public Node (E data) {
         this.data=data;
         this.next=null;
@@ -45,15 +45,15 @@ public class Node <E> {
     /**
      * Getter del dato que se guardo en el nodo
      * @return Dato de tipo E
-     */
+    */
     public E getData() {
         return data;
     }
     
-     /**
+    /**
      * Modifica y reemplaza el dato almacenado en el nodo
      * @param data será el nuevo valor que reemplazará al anterior
-     */
+    */
     public void setData (E data){
         this.data=data;
     }
@@ -61,7 +61,7 @@ public class Node <E> {
     /**
      * Obtiene el nodo siguiente en la lista
      * @return Nodo siguiente
-     */
+    */
     public Node<E> next() {
         return next; //En el último será nulo
     }
@@ -69,7 +69,7 @@ public class Node <E> {
     /**
      * Setter del siguiente nodo  en la lista
      * @param next (el siguiente nodo)
-     */
+    */
     public void setNext (Node<E> next) {
         this.next=next;
     }
