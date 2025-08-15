@@ -5,7 +5,7 @@
 * primitivos - enteros, cadenas, objetos complejos como contactos y cerrar el scanner (salir del programa).
 **/
 
-package act1estructuradatos;
+package app;
 import java.util.Scanner;
 import listas.*;
 
