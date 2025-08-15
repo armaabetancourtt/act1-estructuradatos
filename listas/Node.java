@@ -8,7 +8,7 @@
 * devolver o cambiar el número o dato que esta guardando el nodo.
 **/
 
-package act1estructuradatos;
+package listas;
 
 /**
  * Constructor que crea un nodo con un dato y una referencia al siguiente nodo.
