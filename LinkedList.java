@@ -56,7 +56,7 @@ public class LinkedList <E> {
          Node currentNode = this.firstNode;
         //Si no encuentra final, muestra el valor actual del nodo
         while (currentNode != null) {
-            System.out.print(currentNode.getData() + "  ");
+            System.out.println(currentNode.getData()); // Imprime cada nodo en una línea
             currentNode = currentNode.next();
         }
         System.out.println("null"); //Lo programe para que imprimiera null cuando terminará la lista
