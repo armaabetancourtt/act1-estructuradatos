@@ -5,7 +5,7 @@
 * el agregar, eliminar y ver en consola, en otras palabras, gestiona lo de la lista entrelazada.
 **/
 
-package act1estructuradatos;
+package listas;
 
     /**
      * Constructores, Definición de clase LinkedList y Encapsulamiento
