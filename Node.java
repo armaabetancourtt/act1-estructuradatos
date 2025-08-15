@@ -1,5 +1,5 @@
 /**
-* Autor: Armando Betancourt Esparzaa
+* Autor: Armando Betancourt Esparza
 * Fecha: 14/08/2025
 * Descripción: Esta clase representa un nodo de listas entrelazadas, a mi propio razionamiento es una manera 
 * más eficiente que estoy usando para guardar cualquier tipo de dato (Gracias a <E>), formando una lista de nodos,
