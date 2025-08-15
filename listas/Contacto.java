@@ -4,7 +4,7 @@
 * Descripción: Clase que representa objetos de contacto, donde se almacena la información y definen constructores.
 **/
 
-package act1estructuradatos;
+package listas;
 
 /**
  * Clase Contacto que representa un contacto con nombre, dirección y teléfono.
