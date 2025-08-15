@@ -7,6 +7,7 @@
 
 package act1estructuradatos;
 import java.util.Scanner;
+import listas.*;
 
 public class Main {
     
