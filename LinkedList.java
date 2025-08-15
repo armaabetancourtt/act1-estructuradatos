@@ -10,7 +10,7 @@ package act1estructuradatos;
     /**
      * Constructores, Definición de clase LinkedList y Encapsulamiento
      * @param firstNode Primer nodo de la lista
-     */
+    */
 public class LinkedList <E> {
     private Node<E> firstNode;
     
@@ -24,7 +24,7 @@ public class LinkedList <E> {
     /**
      * Getter
      * @return firstNode.
-     */
+    */
     public Node<E> getFirstNode() {
         return firstNode;
     }
@@ -32,7 +32,7 @@ public class LinkedList <E> {
     /**
      * Verifica (booleano) si la lista está vacía
      * @return true si no hay, false si se detecta uno o más
-     */
+    */
     public boolean isEmpty() {
         return firstNode == null;
     }
@@ -40,7 +40,7 @@ public class LinkedList <E> {
     /**
      * Poner un valor en la posición inicial
      * @param data (dato) por insertar
-     */
+    */
     public void insertAtFirstPosition(E data) {
         Node nodeToInsert = new Node<>(data);
         nodeToInsert.next = firstNode;
@@ -49,7 +49,7 @@ public class LinkedList <E> {
     
     /**
      * Es el método que permite mostrar en el output o consola la lista
-     */
+    */
     
      public void show() {
         //Es el nodo que recorre la lista
@@ -62,10 +62,10 @@ public class LinkedList <E> {
         System.out.println("null"); //Lo programe para que imprimiera null cuando terminará la lista
     }
 
-     /**
+    /**
      * Poner un valor en la posición final
      * @param data (dato) por insertar
-     */
+    */
     public void insertAtLastPosition(E data) {
         if (this.isEmpty()) { //Si la lista está vacía
             insertAtFirstPosition(data);
@@ -82,7 +82,7 @@ public class LinkedList <E> {
      * Remueve la primera aparición de un dato en la lista
      * @param data (dato) a eliminar
      * @return true si se pudo eliminar o false si no se encontro y por ende no fue eliminado
-     */
+    */
     public boolean remove(E data) {
         if (firstNode == null) return false; //Para lista vacia
 
@@ -106,7 +106,7 @@ public class LinkedList <E> {
      * Verifica si un dato está en la lista
      * @param data (dato) es lo que se esta bucando
      * @return true si el dato se encontró, false si el dato no se encontró
-     */
+    */
     public boolean contains(E data) {
         Node<E> current = firstNode;
         while (current != null) {
