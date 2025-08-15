@@ -1,5 +1,5 @@
 /**
-* Autor: Armando Betancourt Esparzaa
+* Autor: Armando Betancourt Esparza
 * Fecha: 14/08/2025
 * Descripción: La clase LinkedList es la que gestionará las operaciones en la lista como consulta de datos (métodos como isEmpty)
 * el agregar, eliminar y ver en consola, en otras palabras, gestiona lo de la lista entrelazada.
