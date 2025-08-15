@@ -1,8 +1,9 @@
 /**
 * Autor: Armando Betancourt Esparza
 * Fecha: 14/08/2025
-* Descripción: Esta clase principal tiene como función mostrar la interfaz del menú en consola, donde puedes probar la lista de
-* primitivos - enteros, cadenas, objetos complejos como contactos y cerrar el scanner (salir del programa).
+* Descripción: Esta clase principal tiene como función mostrar la interfaz del menú en consola,
+* donde se puede probar listas de distintos tipos de datos: Enteros, Cadenas y Objetos complejos (Contactos)
+* Además permite interactuar con las listas mediante operaciones de inserción, eliminación, búsqueda y visualización de elementos.
 **/
 
 package app;
@@ -11,11 +12,18 @@ import java.util.Scanner;
 
 public class Main {
 
+    /**
+     * Método principal que inicia el programa y muestra el menú principal al usuario.
+     * Permite elegir el tipo de lista a probar o salir del programa.
+     * 
+     * @param args Argumentos de línea de comandos (no se usan en este programa).
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
 
         do {
+            // Menú principal
             System.out.println("\n-----| Menú / Escribe el número de una opción |-----");
             System.out.println("1.- Prueba la lista de enteros");
             System.out.println("2.- Prueba la lista de cadenas");
@@ -24,6 +32,7 @@ public class Main {
             System.out.print("Elige una opción: ");
             String input = sc.nextLine();
 
+            // Validación de la entrada
             try {
                 opcion = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -31,6 +40,7 @@ public class Main {
                 opcion = -1;
             }
 
+            // Llamada al método correspondiente según la opción
             switch (opcion) {
                 case 1 -> seleccionarTipoListaEnteros(sc);
                 case 2 -> seleccionarTipoListaStrings(sc);
@@ -44,9 +54,15 @@ public class Main {
 
         } while (opcion != 4);
 
-        sc.close();
+        sc.close(); // Cerrar el Scanner al finalizar
     }
 
+    /**
+     * Permite al usuario seleccionar el tipo de lista de enteros (simple, doble o circular)
+     * y luego ejecutar pruebas de inserción, eliminación y búsqueda en esa lista
+     * 
+     * @param sc Scanner para recibir entradas del usuario
+     */
     private static void seleccionarTipoListaEnteros(Scanner sc) {
         int tipo = -1;
         do {
@@ -69,10 +85,16 @@ public class Main {
         boolean isCircular = tipo == 3;
 
         LinkedList<Integer> list = new LinkedList<>(isDoubly, isCircular);
-        DataTypeExamples.testIntegers(list);
-        interactuarConLista(list, sc, Integer.class);
+        DataTypeExamples.testIntegers(list); // Ejecuta pruebas predeterminadas con enteros
+        interactuarConLista(list, sc, Integer.class); // Menú interactivo para el usuario
     }
 
+    /**
+     * Permite al usuario seleccionar el tipo de lista de cadenas (simple, doble o circular)
+     * y luego ejecutar pruebas de inserción, eliminación y búsqueda en dicha lista
+     * 
+     * @param sc Scanner para recibir entradas del usuario
+     */
     private static void seleccionarTipoListaStrings(Scanner sc) {
         int tipo = -1;
         do {
@@ -95,10 +117,17 @@ public class Main {
         boolean isCircular = tipo == 3;
 
         LinkedList<String> list = new LinkedList<>(isDoubly, isCircular);
-        DataTypeExamples.testStrings(list);
-        interactuarConLista(list, sc, String.class);
+        DataTypeExamples.testStrings(list); // Ejecuta pruebas predeterminadas con cadenas
+        interactuarConLista(list, sc, String.class); // Menú interactivo para el usuario
     }
 
+    /**
+     * Permite al usuario seleccionar el tipo de lista de contactos (simple, doble o circular)
+     * y luego ejecutar pruebas de inserción, eliminación y búsqueda en dicha lista
+     * Cada contacto requiere nombre, dirección y teléfono, con validación de datos
+     * 
+     * @param sc Scanner para recibir entradas del usuario
+     */
     private static void seleccionarTipoListaContactos(Scanner sc) {
         int tipo = -1;
         do {
@@ -121,10 +150,19 @@ public class Main {
         boolean isCircular = tipo == 3;
 
         LinkedList<Contacto> list = new LinkedList<>(isDoubly, isCircular);
-        DataTypeExamples.testComplexObjects(list);
-        interactuarConLista(list, sc, Contacto.class);
+        DataTypeExamples.testComplexObjects(list); // Ejecuta pruebas predeterminadas con contactos
+        interactuarConLista(list, sc, Contacto.class); // Menú interactivo para el usuario
     }
 
+    /**
+     * Menú interactivo para realizar operaciones sobre cualquier lista 
+     * Soporta inserción al inicio o al final, eliminación, búsqueda y mostrar lista
+     * Para contactos valida nombre, dirección y teléfono al insertarlos
+     * 
+     * @param list Lista genérica sobre la que se operará
+     * @param sc Scanner para recibir entradas del usuario
+     * @param tipoDato Clase del tipo de dato almacenado en la lista (Integer, String, Contacto)
+     */
     private static <E> void interactuarConLista(LinkedList<E> list, Scanner sc, Class<E> tipoDato) {
         int opcion = -1;
         do {
@@ -147,6 +185,7 @@ public class Main {
                 case 1, 2 -> {
                     E data = null;
                     if (tipoDato == Contacto.class) {
+                        // Solicitar datos completos para un contacto
                         String nombre, direccion, telefono;
                         do {
                             System.out.print("Ingresa el nombre: ");
@@ -166,6 +205,7 @@ public class Main {
                         } while (telefono.isEmpty());
                         data = (E) new Contacto(nombre, direccion, telefono);
                     } else {
+                        // Insertar dato simple (String o Integer)
                         System.out.print("Ingresa el elemento: ");
                         data = (E) sc.nextLine();
                     }
@@ -179,7 +219,7 @@ public class Main {
                     if (tipoDato == Contacto.class) {
                         System.out.print("Ingresa el nombre del contacto a eliminar: ");
                         String nombre = sc.nextLine();
-                        data = (E) new Contacto(nombre, "", "");
+                        data = (E) new Contacto(nombre, "", ""); // Solo nombre para buscar
                     } else {
                         System.out.print("Elemento a eliminar: ");
                         data = (E) sc.nextLine();
@@ -194,7 +234,7 @@ public class Main {
                     if (tipoDato == Contacto.class) {
                         System.out.print("Ingresa el nombre del contacto a buscar: ");
                         String nombre = sc.nextLine();
-                        data = (E) new Contacto(nombre, "", "");
+                        data = (E) new Contacto(nombre, "", ""); // Solo nombre para buscar
                     } else {
                         System.out.print("Elemento a buscar: ");
                         data = (E) sc.nextLine();
@@ -203,9 +243,9 @@ public class Main {
                     System.out.println(list.contains(data) ? "Elemento encontrado" : "Elemento no encontrado");
                 }
 
-                case 5 -> list.show();
+                case 5 -> list.show(); // Muestra todos los elementos de la lista
             }
 
-        } while (opcion != 6);
+        } while (opcion != 6); // Repetir hasta que el usuario decida salir
     }
 }
