@@ -8,7 +8,7 @@
 package act1estructuradatos;
 
     /**
-     * Constructores
+     * Constructores, Definición de clase LinkedList y Encapsulamiento
      * @param firstNode Primer nodo de la lista
      */
 public class LinkedList <E> {
