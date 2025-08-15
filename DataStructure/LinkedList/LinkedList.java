@@ -5,7 +5,7 @@
 * el agregar, eliminar y ver en consola, en otras palabras, gestiona lo de las lista entrelazada.
 **/
 
-package listas;
+package DataStructure.LinkedList;
 
     /**
      * Constructores, Definición de clase LinkedList y Encapsulamiento
