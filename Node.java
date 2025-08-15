@@ -10,10 +10,20 @@
 
 package act1estructuradatos;
 
+/**
+ * Constructor que crea un nodo con un dato y una referencia al siguiente nodo.
+ * @param data Valor que se almacenará en el nodo.
+ * @param next Referencia al siguiente nodo de la lista (puede ser null).
+ */
+
+//Definición de clase Node: Es un nodo en una lista entrelazada
+
 public class Node <E> {
+    //Atributos
     private E data;
     Node next;
-
+    
+    //Constructores
     public Node (E data, Node next) {
         this.data=data;
         this.next=next;
@@ -23,15 +33,14 @@ public class Node <E> {
         this.data=data;
         this.next=null;
     }
-    
+    //Getter
     public E getData() {
         return data;
     }
-    
+    //Setters
     public void setData (E data){
         this.data=data;
     }
-
     public Node<E> next() {
         return next;
     }
