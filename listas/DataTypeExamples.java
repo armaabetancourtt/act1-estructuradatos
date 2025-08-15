@@ -5,7 +5,7 @@
 * primitivos (int), cadena (String) y los complejos (los contactos).
 **/
 
-package act1estructuradatos;
+package listas;
 
 public class DataTypeExamples {
     
