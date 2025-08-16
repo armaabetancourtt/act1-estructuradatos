@@ -12,8 +12,8 @@
 package app;
 
 import DataStructure.LinkedList.Contacto;
-import DataStructure.LinkedList.LinkedList;
 import DataStructure.LinkedList.DataTypeExamples;
+import DataStructure.LinkedList.LinkedList;
 import java.util.Scanner;
 
 public class Main {
@@ -31,47 +31,47 @@ public class Main {
      * @param args argumentos de línea de cmds
      */
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int opcion = -1;
+        int opcion;
+        try (Scanner sc = new Scanner(System.in)) {
 
-        do {
-            System.out.println("\n-----| Menú Principal |-----");
-            System.out.println("Importante: Cada lista (simple, doble y circular) es independiente de la otra");
-            System.out.println("-----| Escribe el número de la opción |-----");
-            //Cada lista  es un sistema de gestión propio, es decir son diferentes "bibliotecas de contactos"
-            System.out.println("1.- Lista Simple: Gestión de Contactos");
-            System.out.println("2.- Lista Doble: Gestión de Contactos");
-            System.out.println("3.- Lista Circular: Gestión de Contactos");
-            System.out.println("4.- Ejemplo de Lista Simple (Enteros)");
-            System.out.println("5.- Ejemplo de Lista Doble (Enteros)");
-            System.out.println("6.- Ejemplo de Lista Circular (Enteros)");
-            System.out.println("7.- Salir");
-            System.out.print("Elige una opción: ");
+            do {
+                System.out.println("\n-----| Menú Principal |-----");
+                System.out.println("Importante: Cada lista (simple, doble y circular) es independiente de la otra");
+                System.out.println("-----| Escribe el número de la opción |-----");
+                //Cada lista  es un sistema de gestión propio, es decir son diferentes "bibliotecas de contactos"
+                System.out.println("1.- Lista Simple: Gestión de Contactos");
+                System.out.println("2.- Lista Doble: Gestión de Contactos");
+                System.out.println("3.- Lista Circular: Gestión de Contactos");
+                System.out.println("4.- Ejemplo de Lista Simple (Enteros)");
+                System.out.println("5.- Ejemplo de Lista Doble (Enteros)");
+                System.out.println("6.- Ejemplo de Lista Circular (Enteros)");
+                System.out.println("7.- Salir");
+                System.out.print("Elige una opción: ");
 
-            try {
-                opcion = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Debes ingresar un número válido.");
-                opcion = -1;
-            }
-
-            switch (opcion) {
-                case 1 -> manageContacts(sc, false, false);
-                case 2 -> manageContacts(sc, true, false);
-                case 3 -> manageContacts(sc, true, true);
-                case 4 -> examplesInt(sc, false, false);
-                case 5 -> examplesInt(sc, true, false);
-                case 6 -> examplesInt(sc, true, true);
-                case 7 -> System.out.println("Gracias por usar el programa :)...");
-                default -> {
-                    if (opcion != -1)
-                        System.out.println("Opción no válida, ingresa un número del menú.");
+                try {
+                    opcion = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Debes ingresar un número válido.");
+                    opcion = -1;
                 }
-            }
 
-        } while (opcion != 7);
+                switch (opcion) {
+                    case 1 -> manageContacts(sc, false, false);
+                    case 2 -> manageContacts(sc, true, false);
+                    case 3 -> manageContacts(sc, true, true);
+                    case 4 -> examplesInt(sc, false, false);
+                    case 5 -> examplesInt(sc, true, false);
+                    case 6 -> examplesInt(sc, true, true);
+                    case 7 -> System.out.println("Gracias por usar el programa :)...");
+                    default -> {
+                        if (opcion != -1)
+                            System.out.println("Opción no válida, ingresa un número del menú.");
+                    }
+                }
 
-        sc.close();
+            } while (opcion != 7);
+
+        }
     }
 
     /**
@@ -182,7 +182,6 @@ public class Main {
      * @return dato que ingresa el usuario
      */
     private static <E> E requestData(Scanner sc, Class<E> tipoDato) {
-        E data = null;
         if (tipoDato == Contacto.class) {
             String nombre, direccion, telefono;
             do {
@@ -201,14 +200,13 @@ public class Main {
                     telefono = "";
                 }
             } while (telefono.isEmpty());
-            data = (E) new Contacto(nombre, direccion, telefono);
+            return (E) new Contacto(nombre, direccion, telefono);
         } else {
             System.out.print("Ingresa el elemento: ");
             String input = sc.nextLine();
-            if (tipoDato == Integer.class) data = (E) Integer.valueOf(input);
-            else data = (E) input;
+            if (tipoDato == Integer.class) return (E) Integer.valueOf(input);
+            else return (E) input;
         }
-        return data;
     }
 
     /**
@@ -221,17 +219,15 @@ public class Main {
      * @return dato con la información necesaria para eliminar/buscar
      */
     private static <E> E requestDataToRemove(Scanner sc, Class<E> tipoDato) {
-        E data = null;
         if (tipoDato == Contacto.class) {
             System.out.print("Ingresa el nombre del contacto: ");
             String nombre = sc.nextLine().trim();
-            data = (E) new Contacto(nombre, "", "");
+            return (E) new Contacto(nombre, "", "");
         } else {
             System.out.print("Ingresa el elemento: ");
             String input = sc.nextLine();
-            if (tipoDato == Integer.class) data = (E) Integer.valueOf(input);
-            else data = (E) input;
+            if (tipoDato == Integer.class) return (E) Integer.valueOf(input);
+            else return (E) input;
         }
-        return data;
     }
 }
