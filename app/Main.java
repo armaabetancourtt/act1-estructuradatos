@@ -4,6 +4,9 @@
  * Descripción: Clase principal que muestra el menú de gestión de listas.
  * Permite probar listas de contactos (simples, dobles, circulares) y
  * ejecutar ejemplos de listas de enteros usando DataTypeExamples
+ * 
+ * Nota: Mantuve los metodos y atributos en ingles para tener un solo formato,
+ * ademas de que asi vienen declarados los metodos en el tema 1.
  */
 
 package app;
@@ -53,12 +56,12 @@ public class Main {
             }
 
             switch (opcion) {
-                case 1 -> gestionarContactos(sc, false, false);
-                case 2 -> gestionarContactos(sc, true, false);
-                case 3 -> gestionarContactos(sc, true, true);
-                case 4 -> ejemplosEnteros(sc, false, false);
-                case 5 -> ejemplosEnteros(sc, true, false);
-                case 6 -> ejemplosEnteros(sc, true, true);
+                case 1 -> manageContacts(sc, false, false);
+                case 2 -> manageContacts(sc, true, false);
+                case 3 -> manageContacts(sc, true, true);
+                case 4 -> examplesInt(sc, false, false);
+                case 5 -> examplesInt(sc, true, false);
+                case 6 -> examplesInt(sc, true, true);
                 case 7 -> System.out.println("Gracias por usar el programa :)...");
                 default -> {
                     if (opcion != -1)
@@ -77,7 +80,7 @@ public class Main {
      * @param isDoubly true si la lista debe ser doblemente enlazada
      * @param isCircular true si la lista debe ser circular
      */
-    private static void gestionarContactos(Scanner sc, boolean isDoubly, boolean isCircular) {
+    private static void manageContacts(Scanner sc, boolean isDoubly, boolean isCircular) {
         LinkedList<Contacto> list;
         if (!isDoubly && !isCircular) {
             if (simpleContactList == null) {
@@ -99,7 +102,7 @@ public class Main {
             list = circularContactList;
         }
 
-        interactuarConLista(list, sc, Contacto.class);
+        interactWithList(list, sc, Contacto.class);
     }
 
     /**
@@ -109,10 +112,10 @@ public class Main {
      * @param isDoubly  true si la lista debe ser doblemente enlazada
      * @param isCircular true si la lista debe ser circular
      */
-    private static void ejemplosEnteros(Scanner sc, boolean isDoubly, boolean isCircular) {
+    private static void examplesInt(Scanner sc, boolean isDoubly, boolean isCircular) {
         LinkedList<Integer> list = new LinkedList<>(isDoubly, isCircular);
         DataTypeExamples.testIntegers(list);
-        interactuarConLista(list, sc, Integer.class);
+        interactWithList(list, sc, Integer.class);
     }
 
     /**
@@ -123,7 +126,7 @@ public class Main {
      * @param tipoDato  tipo de dato de la lista (Contacto o Integer)
      * @param <E> tipo que guarda varios tipos de dato
      */
-    private static <E> void interactuarConLista(LinkedList<E> list, Scanner sc, Class<E> tipoDato) {
+    private static <E> void interactWithList(LinkedList<E> list, Scanner sc, Class<E> tipoDato) {
         int opcion = -1;
         do {
             System.out.println("\nOperaciones disponibles:");
@@ -144,17 +147,17 @@ public class Main {
 
             switch (opcion) {
                 case 1, 2 -> {
-                    E data = solicitarDato(sc, tipoDato);
+                    E data = requestData(sc, tipoDato);
                     if (opcion == 1) list.insertAtFirstPosition(data);
                     else list.insertAtLastPosition(data);
                 }
                 case 3 -> {
-                    E data = solicitarDatoParaEliminar(sc, tipoDato);
+                    E data = requestDataToRemove(sc, tipoDato);
                     if (list.remove(data)) System.out.println("Elemento eliminado");
                     else System.out.println("Elemento no encontrado");
                 }
                 case 4 -> {
-                    E data = solicitarDatoParaEliminar(sc, tipoDato);
+                    E data = requestDataToRemove(sc, tipoDato);
                     int pos = list.indexOf(data);
                     if (pos != -1) {
                         System.out.println("Elemento encontrado en la posición " + pos);
@@ -178,7 +181,7 @@ public class Main {
      * @param <E> tipo que guarda datos
      * @return dato que ingresa el usuario
      */
-    private static <E> E solicitarDato(Scanner sc, Class<E> tipoDato) {
+    private static <E> E requestData(Scanner sc, Class<E> tipoDato) {
         E data = null;
         if (tipoDato == Contacto.class) {
             String nombre, direccion, telefono;
@@ -217,7 +220,7 @@ public class Main {
      * @param <E>   tipo que guarda dato
      * @return dato con la información necesaria para eliminar/buscar
      */
-    private static <E> E solicitarDatoParaEliminar(Scanner sc, Class<E> tipoDato) {
+    private static <E> E requestDataToRemove(Scanner sc, Class<E> tipoDato) {
         E data = null;
         if (tipoDato == Contacto.class) {
             System.out.print("Ingresa el nombre del contacto: ");
