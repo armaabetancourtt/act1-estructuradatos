@@ -3,7 +3,7 @@
  * Fecha: 15/08/2025
  * Descripción: Clase principal que muestra el menú de gestión de listas.
  * Permite probar listas de contactos (simples, dobles, circulares) y
- * ejecutar ejemplos de listas de enteros usando DataTypeExamples.
+ * ejecutar ejemplos de listas de enteros usando DataTypeExamples
  */
 
 package app;
