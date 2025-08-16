@@ -1,167 +1,127 @@
 /**
-* Autor: Armando Betancourt Esparza
-* Fecha: 14/08/2025
-* Descripción: Esta clase principal tiene como función mostrar la interfaz del menú en consola,
-* donde se puede probar listas de distintos tipos de datos: Enteros, Cadenas y Objetos complejos (Contactos)
-* Además permite interactuar con las listas mediante operaciones de inserción, eliminación, búsqueda y visualización de elementos.
-**/
+ * Autor: Armando Betancourt Esparza
+ * Fecha: 15/08/2025
+ * Descripción: Clase principal que muestra el menú de gestión de listas.
+ * Permite probar listas de contactos (simples, dobles, circulares) y
+ * ejecutar ejemplos de listas de enteros usando DataTypeExamples.
+ */
 
 package app;
-import listas.*;
+
+import DataStructure.LinkedList.Contacto;
+import DataStructure.LinkedList.LinkedList;
+import DataStructure.LinkedList.DataTypeExamples;
 import java.util.Scanner;
 
 public class Main {
 
+    /** Lista simple de contactos */
+    private static LinkedList<Contacto> simpleContactList = null;
+    /** Lista doble de contactos */
+    private static LinkedList<Contacto> doublyContactList = null;
+    /** Lista circular de contactos */
+    private static LinkedList<Contacto> circularContactList = null;
+
     /**
-     * Método principal que inicia el programa y muestra el menú principal al usuario.
-     * Permite elegir el tipo de lista a probar o salir del programa.
-     * 
-     * @param args Argumentos de línea de comandos (no se usan en este programa).
+     * Método principal del programa.
+     * Muestra un menú y permite al usuario interactuar con distintas listas enlazadas
+     * @param args argumentos de línea de cmds
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
 
         do {
-            // Menú principal
-            System.out.println("\n-----| Menú / Escribe el número de una opción |-----");
-            System.out.println("1.- Prueba la lista de enteros");
-            System.out.println("2.- Prueba la lista de cadenas");
-            System.out.println("3.- Prueba la lista de objetos complejos (contactos)");
-            System.out.println("4.- Salir");
+            System.out.println("\n-----| Menú Principal |-----");
+            System.out.println("Importante: Cada lista (simple, doble y circular) es independiente de la otra");
+            System.out.println("-----| Escribe el número de la opción |-----");
+            //Cada lista  es un sistema de gestión propio, es decir son diferentes "bibliotecas de contactos"
+            System.out.println("1.- Lista Simple: Gestión de Contactos");
+            System.out.println("2.- Lista Doble: Gestión de Contactos");
+            System.out.println("3.- Lista Circular: Gestión de Contactos");
+            System.out.println("4.- Ejemplo de Lista Simple (Enteros)");
+            System.out.println("5.- Ejemplo de Lista Doble (Enteros)");
+            System.out.println("6.- Ejemplo de Lista Circular (Enteros)");
+            System.out.println("7.- Salir");
             System.out.print("Elige una opción: ");
-            String input = sc.nextLine();
 
-            // Validación de la entrada
             try {
-                opcion = Integer.parseInt(input);
+                opcion = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Alerta de error: Debe ingresar un número de las opciones del menú");
+                System.out.println("Debes ingresar un número válido.");
                 opcion = -1;
             }
 
-            // Llamada al método correspondiente según la opción
             switch (opcion) {
-                case 1 -> seleccionarTipoListaEnteros(sc);
-                case 2 -> seleccionarTipoListaStrings(sc);
-                case 3 -> seleccionarTipoListaContactos(sc);
-                case 4 -> System.out.println("Gracias por usar el programa :)...");
+                case 1 -> gestionarContactos(sc, false, false);
+                case 2 -> gestionarContactos(sc, true, false);
+                case 3 -> gestionarContactos(sc, true, true);
+                case 4 -> ejemplosEnteros(sc, false, false);
+                case 5 -> ejemplosEnteros(sc, true, false);
+                case 6 -> ejemplosEnteros(sc, true, true);
+                case 7 -> System.out.println("Gracias por usar el programa :)...");
                 default -> {
                     if (opcion != -1)
-                        System.out.println("Alerta de error: Debe ingresar un número de las opciones del menú");
+                        System.out.println("Opción no válida, ingresa un número del menú.");
                 }
             }
 
-        } while (opcion != 4);
+        } while (opcion != 7);
 
-        sc.close(); // Cerrar el Scanner al finalizar
+        sc.close();
     }
 
     /**
-     * Permite al usuario seleccionar el tipo de lista de enteros (simple, doble o circular)
-     * y luego ejecutar pruebas de inserción, eliminación y búsqueda en esa lista
-     * 
-     * @param sc Scanner para recibir entradas del usuario
+     * Crea y gestiona una lista de {@link Contacto} según el tipo de lista elegido
+     * @param sc Scanner para entrada del usuario
+     * @param isDoubly true si la lista debe ser doblemente enlazada
+     * @param isCircular true si la lista debe ser circular
      */
-    private static void seleccionarTipoListaEnteros(Scanner sc) {
-        int tipo = -1;
-        do {
-            System.out.println("Selecciona el tipo de lista:");
-            System.out.println("1.- Simple");
-            System.out.println("2.- Doble");
-            System.out.println("3.- Circular");
-            try {
-                tipo = Integer.parseInt(sc.nextLine());
-                if (tipo < 1 || tipo > 3) {
-                    System.out.println("Debes ingresar un número entre 1 y 3.");
-                    tipo = -1;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Debes ingresar un número válido.");
+    private static void gestionarContactos(Scanner sc, boolean isDoubly, boolean isCircular) {
+        LinkedList<Contacto> list;
+        if (!isDoubly && !isCircular) {
+            if (simpleContactList == null) {
+                simpleContactList = new LinkedList<>(false, false);
+                DataTypeExamples.testComplexObjects(simpleContactList);
             }
-        } while (tipo == -1);
+            list = simpleContactList;
+        } else if (isDoubly && !isCircular) {
+            if (doublyContactList == null) {
+                doublyContactList = new LinkedList<>(true, false);
+                DataTypeExamples.testComplexObjects(doublyContactList);
+            }
+            list = doublyContactList;
+        } else {
+            if (circularContactList == null) {
+                circularContactList = new LinkedList<>(true, true);
+                DataTypeExamples.testComplexObjects(circularContactList);
+            }
+            list = circularContactList;
+        }
 
-        boolean isDoubly = tipo == 2;
-        boolean isCircular = tipo == 3;
+        interactuarConLista(list, sc, Contacto.class);
+    }
 
+    /**
+     * Crea y gestiona una lista de enteros según el tipo de lista elegido.
+     *
+     * @param sc  Scanner para que el usuario interactue
+     * @param isDoubly  true si la lista debe ser doblemente enlazada
+     * @param isCircular true si la lista debe ser circular
+     */
+    private static void ejemplosEnteros(Scanner sc, boolean isDoubly, boolean isCircular) {
         LinkedList<Integer> list = new LinkedList<>(isDoubly, isCircular);
-        DataTypeExamples.testIntegers(list); // Ejecuta pruebas predeterminadas con enteros
-        interactuarConLista(list, sc, Integer.class); // Menú interactivo para el usuario
+        DataTypeExamples.testIntegers(list);
+        interactuarConLista(list, sc, Integer.class);
     }
 
     /**
-     * Permite al usuario seleccionar el tipo de lista de cadenas (simple, doble o circular)
-     * y luego ejecutar pruebas de inserción, eliminación y búsqueda en dicha lista
-     * 
-     * @param sc Scanner para recibir entradas del usuario
-     */
-    private static void seleccionarTipoListaStrings(Scanner sc) {
-        int tipo = -1;
-        do {
-            System.out.println("Selecciona el tipo de lista:");
-            System.out.println("1.- Simple");
-            System.out.println("2.- Doble");
-            System.out.println("3.- Circular");
-            try {
-                tipo = Integer.parseInt(sc.nextLine());
-                if (tipo < 1 || tipo > 3) {
-                    System.out.println("Debes ingresar un número entre 1 y 3.");
-                    tipo = -1;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Debes ingresar un número válido.");
-            }
-        } while (tipo == -1);
-
-        boolean isDoubly = tipo == 2;
-        boolean isCircular = tipo == 3;
-
-        LinkedList<String> list = new LinkedList<>(isDoubly, isCircular);
-        DataTypeExamples.testStrings(list); // Ejecuta pruebas predeterminadas con cadenas
-        interactuarConLista(list, sc, String.class); // Menú interactivo para el usuario
-    }
-
-    /**
-     * Permite al usuario seleccionar el tipo de lista de contactos (simple, doble o circular)
-     * y luego ejecutar pruebas de inserción, eliminación y búsqueda en dicha lista
-     * Cada contacto requiere nombre, dirección y teléfono, con validación de datos
-     * 
-     * @param sc Scanner para recibir entradas del usuario
-     */
-    private static void seleccionarTipoListaContactos(Scanner sc) {
-        int tipo = -1;
-        do {
-            System.out.println("Selecciona el tipo de lista:");
-            System.out.println("1.- Simple");
-            System.out.println("2.- Doble");
-            System.out.println("3.- Circular");
-            try {
-                tipo = Integer.parseInt(sc.nextLine());
-                if (tipo < 1 || tipo > 3) {
-                    System.out.println("Debes ingresar un número entre 1 y 3.");
-                    tipo = -1;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Debes ingresar un número válido.");
-            }
-        } while (tipo == -1);
-
-        boolean isDoubly = tipo == 2;
-        boolean isCircular = tipo == 3;
-
-        LinkedList<Contacto> list = new LinkedList<>(isDoubly, isCircular);
-        DataTypeExamples.testComplexObjects(list); // Ejecuta pruebas predeterminadas con contactos
-        interactuarConLista(list, sc, Contacto.class); // Menú interactivo para el usuario
-    }
-
-    /**
-     * Menú interactivo para realizar operaciones sobre cualquier lista 
-     * Soporta inserción al inicio o al final, eliminación, búsqueda y mostrar lista
-     * Para contactos valida nombre, dirección y teléfono al insertarlos
-     * 
-     * @param list Lista genérica sobre la que se operará
-     * @param sc Scanner para recibir entradas del usuario
-     * @param tipoDato Clase del tipo de dato almacenado en la lista (Integer, String, Contacto)
+     * Permite al usuario realizar operaciones sobre una lista enlazada
+     *
+     * @param list lista enlazada genérica
+     * @param sc Scanner para entrada del usuario
+     * @param tipoDato  tipo de dato de la lista (Contacto o Integer)
+     * @param <E> tipo que guarda varios tipos de dato
      */
     private static <E> void interactuarConLista(LinkedList<E> list, Scanner sc, Class<E> tipoDato) {
         int opcion = -1;
@@ -174,6 +134,7 @@ public class Main {
             System.out.println("5.- Mostrar lista");
             System.out.println("6.- Salir");
             System.out.print("Elige una opción: ");
+
             try {
                 opcion = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
@@ -183,69 +144,91 @@ public class Main {
 
             switch (opcion) {
                 case 1, 2 -> {
-                    E data = null;
-                    if (tipoDato == Contacto.class) {
-                        // Solicitar datos completos para un contacto
-                        String nombre, direccion, telefono;
-                        do {
-                            System.out.print("Ingresa el nombre: ");
-                            nombre = sc.nextLine().trim();
-                        } while (nombre.isEmpty());
-                        do {
-                            System.out.print("Ingresa la dirección: ");
-                            direccion = sc.nextLine().trim();
-                        } while (direccion.isEmpty());
-                        do {
-                            System.out.print("Ingresa el teléfono: ");
-                            telefono = sc.nextLine().trim();
-                            if (!telefono.matches("\\d+")) {
-                                System.out.println("El teléfono debe ser solo números.");
-                                telefono = "";
-                            }
-                        } while (telefono.isEmpty());
-                        data = (E) new Contacto(nombre, direccion, telefono);
-                    } else {
-                        // Insertar dato simple (String o Integer)
-                        System.out.print("Ingresa el elemento: ");
-                        data = (E) sc.nextLine();
-                    }
-
+                    E data = solicitarDato(sc, tipoDato);
                     if (opcion == 1) list.insertAtFirstPosition(data);
                     else list.insertAtLastPosition(data);
                 }
-
                 case 3 -> {
-                    E data = null;
-                    if (tipoDato == Contacto.class) {
-                        System.out.print("Ingresa el nombre del contacto a eliminar: ");
-                        String nombre = sc.nextLine();
-                        data = (E) new Contacto(nombre, "", ""); // Solo nombre para buscar
-                    } else {
-                        System.out.print("Elemento a eliminar: ");
-                        data = (E) sc.nextLine();
-                    }
-
+                    E data = solicitarDatoParaEliminar(sc, tipoDato);
                     if (list.remove(data)) System.out.println("Elemento eliminado");
-                    else System.out.println("No se encontró el elemento");
+                    else System.out.println("Elemento no encontrado");
                 }
-
                 case 4 -> {
-                    E data = null;
-                    if (tipoDato == Contacto.class) {
-                        System.out.print("Ingresa el nombre del contacto a buscar: ");
-                        String nombre = sc.nextLine();
-                        data = (E) new Contacto(nombre, "", ""); // Solo nombre para buscar
+                    E data = solicitarDatoParaEliminar(sc, tipoDato);
+                    int pos = list.indexOf(data);
+                    if (pos != -1) {
+                        System.out.println("Elemento encontrado en la posición " + pos);
                     } else {
-                        System.out.print("Elemento a buscar: ");
-                        data = (E) sc.nextLine();
+                        System.out.println("Elemento no encontrado");
                     }
-
-                    System.out.println(list.contains(data) ? "Elemento encontrado" : "Elemento no encontrado");
                 }
-
-                case 5 -> list.show(); // Muestra todos los elementos de la lista
+                case 5 -> list.show();
             }
 
-        } while (opcion != 6); // Repetir hasta que el usuario decida salir
+        } while (opcion != 6);
+    }
+
+    /**
+     * Solicita al usuario un nuevo dato para insertar en la lista.
+     * Si es un contacto pedirá nombre, dirección y su telefono
+     * Si es un Integer forzará al usuario a introducir un número en bucle hasta que lo haga
+     *
+     * @param sc Scanner para entrada del usuario
+     * @param tipoDato  clase del tipo de dato
+     * @param <E> tipo que guarda datos
+     * @return dato que ingresa el usuario
+     */
+    private static <E> E solicitarDato(Scanner sc, Class<E> tipoDato) {
+        E data = null;
+        if (tipoDato == Contacto.class) {
+            String nombre, direccion, telefono;
+            do {
+                System.out.print("Ingresa el nombre: ");
+                nombre = sc.nextLine().trim();
+            } while (nombre.isEmpty());
+            do {
+                System.out.print("Ingresa la dirección: ");
+                direccion = sc.nextLine().trim();
+            } while (direccion.isEmpty());
+            do {
+                System.out.print("Ingresa el teléfono: ");
+                telefono = sc.nextLine().trim();
+                if (!telefono.matches("\\d+")) {
+                    System.out.println("El teléfono debe ser solo números.");
+                    telefono = "";
+                }
+            } while (telefono.isEmpty());
+            data = (E) new Contacto(nombre, direccion, telefono);
+        } else {
+            System.out.print("Ingresa el elemento: ");
+            String input = sc.nextLine();
+            if (tipoDato == Integer.class) data = (E) Integer.valueOf(input);
+            else data = (E) input;
+        }
+        return data;
+    }
+
+    /**
+     * Solicita al usuario un dato para eliminar o buscar en la lista.
+     * Para {@link Contacto} solo pide el nombre, ya que es suficiente para identificarlo.
+     *
+     * @param sc  Scanner para entrada del usuario
+     * @param tipoDato  clase del tipo de dato
+     * @param <E>   tipo que guarda dato
+     * @return dato con la información necesaria para eliminar/buscar
+     */
+    private static <E> E solicitarDatoParaEliminar(Scanner sc, Class<E> tipoDato) {
+        E data = null;
+        if (tipoDato == Contacto.class) {
+            System.out.print("Ingresa el nombre del contacto: ");
+            String nombre = sc.nextLine().trim();
+            data = (E) new Contacto(nombre, "", "");
+        } else {
+            System.out.print("Ingresa el elemento: ");
+            String input = sc.nextLine();
+            if (tipoDato == Integer.class) data = (E) Integer.valueOf(input);
+            else data = (E) input;
+        }
+        return data;
     }
 }
