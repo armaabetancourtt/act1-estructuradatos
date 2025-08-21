@@ -1,6 +1,6 @@
 /**
  * Autor: Armando Betancourt Esparza
- * Fecha: 14/08/2025
+ * Fecha: 20/08/2025
  * Descripción: Nodo para listas enlazadas, su función es ser la base para la construcción de las listas entrelazadas
  * 
  */
@@ -9,8 +9,9 @@ package DataStructure;
 public class Node<E> {
     /** Dato almacenado en el nodo y referencias al siguiente y previo nodo */
     private E data;
-    Node<E> next;
-    Node<E> prev;
+    private Node<E> next;
+    private Node<E> prev;
+
 
     /**
      * Constructor que inicializa un nodo con un dato
