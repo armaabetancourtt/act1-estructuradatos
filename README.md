@@ -26,9 +26,9 @@ javac Main.java DataTypeExamples.java Stack.java Queue.java LinkedList.java
 Este paquete contiene las clases de listas enlazadas y ejemplos de datos para inicializar pilas y colas.
 
 ### Archivos
-- LinkedList.java → Implementación genérica de listas enlazadas.
+- **LinkedList.java** → Implementación genérica de listas enlazadas.
 
-- DataTypeExamples.java → Agrega datos de ejemplo a pilas (comandos) y colas (procesos).
+- **DataTypeExamples.java** → Agrega datos de ejemplo a pilas (comandos) y colas (procesos).
 
 
 
@@ -37,7 +37,7 @@ Este paquete contiene las clases de listas enlazadas y ejemplos de datos para in
 Este paquete implementa la pila utilizada para el historial de comandos.
 
 ### Archivos
-Stack.java → Implementa una pila genérica usando LinkedList.
+- **Stack.java** → Implementa una pila genérica usando LinkedList.
 
 
 ---
@@ -46,7 +46,7 @@ Stack.java → Implementa una pila genérica usando LinkedList.
 Este paquete implementa la cola utilizada para la ejecución de procesos.
 
 ## Archivos
-- Queue.java → Implementa una cola genérica usando LinkedList.
+- **Queue.java** → Implementa una cola genérica usando LinkedList.
 
 
 
