@@ -15,13 +15,13 @@ Este paquete contiene el programa principal que simula un sistema operativo bás
 - `Main.java` → Programa principal con menú interactivo.
 
 ### Compilación
-Abre una terminal en la carpeta `App` y ejecuta:
+Abre una terminal en la carpeta `App` y ejecuta todos los siguientes archivos:
 
 ```bash
-javac Main.java
+javac Main.java DataTypeExamples.java Stack.java Queue.java LinkedList.java
 ```
 ---
-
+#(Los siguientes paquetes son de caracter informativo)
 ## Paquete DataStructure.LinkedList - Listas Enlazadas y Datos de Prueba
 Este paquete contiene las clases de listas enlazadas y ejemplos de datos para inicializar pilas y colas.
 
@@ -30,40 +30,23 @@ Este paquete contiene las clases de listas enlazadas y ejemplos de datos para in
 
 - DataTypeExamples.java → Agrega datos de ejemplo a pilas (comandos) y colas (procesos).
 
-### Compilación
-Abre una terminal en la carpeta DataStructure/LinkedList y ejecuta:
 
-```bash
-javac LinkedList.java DataTypeExamples.java
-```
 
+---
 ## Paquete DataStructure.Stack - Pila (Stack)
 Este paquete implementa la pila utilizada para el historial de comandos.
 
 ### Archivos
 Stack.java → Implementa una pila genérica usando LinkedList.
 
-### Compilación
-Abre una terminal en la carpeta DataStructure/Stack y ejecuta:
-```bash
-javac Stack.java
-```
+
+---
 
 ###Paquete DataStructure.Queue - Cola (Queue)
 Este paquete implementa la cola utilizada para la ejecución de procesos.
 
-Archivos
+## Archivos
 - Queue.java → Implementa una cola genérica usando LinkedList.
 
-Compilación
-Abre una terminal en la carpeta DataStructure/Queue y ejecuta:
 
 
-javac Queue.java
-Ejecución General del Proyecto
-Para compilar y ejecutar todo el proyecto completo, asegúrate de estar en la raíz del proyecto donde están los paquetes App y DataStructure, y ejecuta:
-
-
-```bash
-javac DataStructure/LinkedList/LinkedList.java DataStructure/LinkedList/DataTypeExamples.java DataStructure/Stack/Stack.java DataStructure/Queue/Queue.java App/Main.java
-```
