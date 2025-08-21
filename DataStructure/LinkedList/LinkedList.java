@@ -1,7 +1,7 @@
 /**
  * Autor: Armando Betancourt Esparza
  * Fecha: 20/08/2025
- * Descripción: LinkedList sirve para almacenar datos en nodos con propiedades dobles y circulares.
+ * Descripción: LinkedList sirve para almacenar datos en nodos con propiedades dobles y circulares
  */
 package DataStructure.LinkedList;
 
