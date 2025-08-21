@@ -18,8 +18,8 @@ public class LinkedList<E> implements Iterable<E> {
 
     private Node<E> head;
     private Node<E> tail;
-    private boolean isDoubly;
-    private boolean isCircular;
+    private final boolean isDoubly;
+    private final boolean isCircular;
 
     /**
      * Crea una nueva LinkedList.
