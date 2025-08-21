@@ -1,24 +1,32 @@
 /**
  * Autor: Armando Betancourt Esparza
- * Fecha: 14/08/2025
- * Descripción: LinkedList sirve para almacenar datos, gestionar elementos contados en nodos, 
- * además de ser la clase que permite las operaciones como insertar en ult o primera posición
- * 
+ * Fecha: 20/08/2025
+ * Descripción: LinkedList sirve para almacenar datos en nodos con propiedades dobles y circulares.
  */
 package DataStructure.LinkedList;
 
 import DataStructure.Node;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
-* LinkedList genérica (simple / doble / circular)
-*/
-public class LinkedList<E> {
+ * LinkedList genérica (simple / doble / circular)
+ *
+ * @param <E> Tipo de dato a almacenar en la lista
+ */
+public class LinkedList<E> implements Iterable<E> {
 
     private Node<E> head;
     private Node<E> tail;
     private boolean isDoubly;
     private boolean isCircular;
 
+    /**
+     * Crea una nueva LinkedList.
+     *
+     * @param isDoubly  true si será doblemente enlazada
+     * @param isCircular true si será circular
+     */
     public LinkedList(boolean isDoubly, boolean isCircular) {
         this.isDoubly = isDoubly;
         this.isCircular = isCircular;
@@ -26,23 +34,10 @@ public class LinkedList<E> {
         tail = null;
     }
 
-    /** Comparador interno: si son Contacto compara por nombre (ignorando mayúsculas/espacios),
-    *  si no, usa equals normal. */
-    private boolean dataEquals(E a, E b) {
-        if (a == b) return true;           // misma referencia o ambos null
-        if (a == null || b == null) return false;
-        if (a instanceof Contacto && b instanceof Contacto) {
-            String na = ((Contacto) a).getNombre().trim().toLowerCase();
-            String nb = ((Contacto) b).getNombre().trim().toLowerCase();
-            return na.equals(nb);
-        }
-        return a.equals(b);
-    }
-
-    /** Inserta al inicio */
+    /** Inserta un nodo al inicio de la lista */
     public void insertAtFirstPosition(E data) {
         Node<E> newNode = new Node<>(data);
-        if (head == null) { // lista vacía
+        if (head == null) { 
             head = tail = newNode;
             if (isCircular) {
                 head.setNext(head);
@@ -51,24 +46,18 @@ public class LinkedList<E> {
             return;
         }
 
-        if (isCircular) {
-            newNode.setNext(head);
-            if (isDoubly) {
-                newNode.setPrev(tail);
-                head.setPrev(newNode);
-                tail.setNext(newNode);
-            } else {
-                tail.setNext(newNode);
-            }
-            head = newNode;
-        } else {
-            newNode.setNext(head);
-            if (isDoubly) head.setPrev(newNode);
-            head = newNode;
+        newNode.setNext(head);
+        if (isDoubly) {
+            newNode.setPrev(isCircular ? tail : null);
+            head.setPrev(newNode);
         }
+        if (isCircular) {
+            tail.setNext(newNode);
+        }
+        head = newNode;
     }
 
-    /** Inserta al final */
+    /** Inserta un nodo al final de la lista */
     public void insertAtLastPosition(E data) {
         Node<E> newNode = new Node<>(data);
         if (head == null) {
@@ -80,51 +69,53 @@ public class LinkedList<E> {
             return;
         }
 
+        newNode.setPrev(isDoubly ? tail : null);
         if (isCircular) {
             newNode.setNext(head);
-            if (isDoubly) {
-                newNode.setPrev(tail);
-                tail.setNext(newNode);
-                head.setPrev(newNode);
-            } else {
-                tail.setNext(newNode);
-            }
-            tail = newNode;
+            tail.setNext(newNode);
+            if (isDoubly) head.setPrev(newNode);
         } else {
             tail.setNext(newNode);
-            if (isDoubly) newNode.setPrev(tail);
-            tail = newNode;
         }
+        tail = newNode;
     }
 
-    /** Elimina un elemento */
+    /** Elimina un elemento por valor */
     public boolean remove(E data) {
         if (head == null) return false;
         Node<E> current = head;
         Node<E> prevNode = null;
 
         do {
-            if (dataEquals(current.getData(), data)) {
-                if (current == head && current == tail) {
+            if ((current.getData() == null && data == null) || 
+                (current.getData() != null && current.getData().equals(data))) {
+
+                if (current == head && current == tail) { 
                     head = tail = null;
                     return true;
                 }
+
                 if (current == head) {
                     head = head.getNext();
                     if (isDoubly && head != null) head.setPrev(isCircular ? tail : null);
                     if (isCircular && tail != null) tail.setNext(head);
                     return true;
                 }
+
                 if (current == tail) {
                     tail = prevNode;
-                    if (tail != null) tail.setNext(isCircular ? head : null);
-                    if (isDoubly && head != null) head.setPrev(isCircular ? tail : null);
+                    if (tail != null) {
+                        tail.setNext(isCircular ? head : null);
+                        if (isDoubly && isCircular) head.setPrev(tail);
+                    }
                     return true;
                 }
+
                 prevNode.setNext(current.getNext());
                 if (isDoubly && current.getNext() != null) current.getNext().setPrev(prevNode);
                 return true;
             }
+
             prevNode = current;
             current = current.getNext();
         } while ((isCircular && current != head) || (!isCircular && current != null));
@@ -132,7 +123,37 @@ public class LinkedList<E> {
         return false;
     }
 
-    /** Verifica si contiene un elemento */
+    /** Elimina el primer nodo y devuelve su valor */
+    public E removeFirst() {
+        if (head == null) throw new IllegalStateException("La lista está vacía");
+        E data = head.getData();
+        if (head == tail) {
+            head = tail = null;
+        } else {
+            head = head.getNext();
+            if (isDoubly) head.setPrev(isCircular ? tail : null);
+            if (isCircular) tail.setNext(head);
+        }
+        return data;
+    }
+
+    /** Elimina el último nodo y devuelve su valor */
+    public E removeLast() {
+        if (tail == null) throw new IllegalStateException("La lista está vacía");
+        E data = tail.getData();
+        if (head == tail) {
+            head = tail = null;
+        } else {
+            tail = tail.getPrev();
+            if (tail != null) {
+                tail.setNext(isCircular ? head : null);
+            }
+            if (isDoubly && isCircular) head.setPrev(tail);
+        }
+        return data;
+    }
+
+    /** Verifica si la lista contiene un elemento */
     public boolean contains(E data) {
         return indexOf(data) != -1;
     }
@@ -146,16 +167,15 @@ public class LinkedList<E> {
         Node<E> current = head;
         int index = 0;
         do {
-            if (dataEquals(current.getData(), data)) {
-                return index;
-            }
+            if ((current.getData() == null && data == null) || 
+                (current.getData() != null && current.getData().equals(data))) return index;
             current = current.getNext();
             index++;
         } while ((isCircular && current != head) || (!isCircular && current != null));
         return -1;
     }
 
-    /** Muestra la lista */
+    /** Muestra la lista por consola */
     public void show() {
         if (head == null) {
             System.out.println("Lista vacía");
@@ -195,5 +215,29 @@ public class LinkedList<E> {
                 System.out.println("null");
             }
         }
+    }
+
+    /** Permite recorrer la lista con for-each */
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private Node<E> current = head;
+            private boolean first = true;
+
+            @Override
+            public boolean hasNext() {
+                if (current == null) return false;
+                return isCircular ? first || current != head : current != null;
+            }
+
+            @Override
+            public E next() {
+                if (!hasNext()) throw new NoSuchElementException();
+                E data = current.getData();
+                current = current.getNext();
+                first = false;
+                return data;
+            }
+        };
     }
 }
