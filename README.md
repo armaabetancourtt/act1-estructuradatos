@@ -22,35 +22,38 @@ javac Main.java
 ```
 ---
 
-Paquete DataStructure.LinkedList - Listas Enlazadas y Datos de Prueba
+## Paquete DataStructure.LinkedList - Listas Enlazadas y Datos de Prueba
 Este paquete contiene las clases de listas enlazadas y ejemplos de datos para inicializar pilas y colas.
 
-Archivos
-LinkedList.java → Implementación genérica de listas enlazadas.
+### Archivos
+- LinkedList.java → Implementación genérica de listas enlazadas.
 
-DataTypeExamples.java → Agrega datos de ejemplo a pilas (comandos) y colas (procesos).
+- DataTypeExamples.java → Agrega datos de ejemplo a pilas (comandos) y colas (procesos).
 
-Compilación
+### Compilación
 Abre una terminal en la carpeta DataStructure/LinkedList y ejecuta:
 
-
+```bash
 javac LinkedList.java DataTypeExamples.java
-Paquete DataStructure.Stack - Pila (Stack)
+```
+
+## Paquete DataStructure.Stack - Pila (Stack)
 Este paquete implementa la pila utilizada para el historial de comandos.
 
-Archivos
+### Archivos
 Stack.java → Implementa una pila genérica usando LinkedList.
 
-Compilación
+### Compilación
 Abre una terminal en la carpeta DataStructure/Stack y ejecuta:
-
-
+```bash
 javac Stack.java
-Paquete DataStructure.Queue - Cola (Queue)
+```
+
+###Paquete DataStructure.Queue - Cola (Queue)
 Este paquete implementa la cola utilizada para la ejecución de procesos.
 
 Archivos
-Queue.java → Implementa una cola genérica usando LinkedList.
+- Queue.java → Implementa una cola genérica usando LinkedList.
 
 Compilación
 Abre una terminal en la carpeta DataStructure/Queue y ejecuta:
